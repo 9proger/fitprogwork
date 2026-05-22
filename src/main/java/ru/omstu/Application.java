@@ -9,3 +9,12 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 }
+//http://localhost:8080/api/data/extract
+
+/*
+{
+  "type": "xml",
+  "data": "<root><user><name>Alex</name></user></root>",
+  "path": "user/name"
+}
+ */

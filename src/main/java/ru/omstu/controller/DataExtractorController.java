@@ -25,6 +25,7 @@ public class DataExtractorController {
     }
 }
 /*
+http://localhost:8081/api/data/extract
 {
   "type": "json",
   "data": "{ \"user\": { \"name\": \"Alex\" } }",
@@ -34,6 +35,12 @@ public class DataExtractorController {
 {
   "type": "yaml",
   "data": "{ \"user\": { \"name\": \"Alex\" } }",
+  "path": "user/name"
+}
+
+{
+  "type": "yaml",
+  "data": "user:\n  name: Alex",
   "path": "user/name"
 }
 
