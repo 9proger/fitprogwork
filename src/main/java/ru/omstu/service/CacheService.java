@@ -8,7 +8,7 @@ import ru.omstu.dto.CacheKey;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service("mapCache") // Именуем бин, чтобы он не был основным (Primary)
+@Service("mapCache")
 public class CacheService implements CacheProvider {
     private static final Logger log = LoggerFactory.getLogger(CacheService.class);
 

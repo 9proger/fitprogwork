@@ -11,7 +11,6 @@ public class CacheEntry {
     private Long id;
 
     private String type;
-    //@Lob // Для больших строк данных
     private String requestData;
     private String path;
     private String resultValue;
