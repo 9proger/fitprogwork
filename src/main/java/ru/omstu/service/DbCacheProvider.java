@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.omstu.dto.CacheKey;
 import ru.omstu.figprogwork.db.CacheEntry;
+import ru.omstu.figprogwork.db.CacheId;
 import ru.omstu.figprogwork.db.CacheRepository;
 
 @Service
@@ -20,9 +21,11 @@ public class DbCacheProvider implements CacheProvider {
 
     @Override
     public String get(CacheKey key) {
-        return repository.findByTypeAndRequestDataAndPath(key.type(), key.data(), key.path())
+        CacheId cid = new CacheId(key.type(), key.data(), key.path());
+
+        return repository.findById(cid)
                 .map(entry -> {
-                    log.info("[DB-CACHE] Найдено в БД для: {}", key.path());
+                    log.info("[DB-CACHE] Найдено по ключу для: {}", key.path());
                     return entry.getResultValue();
                 })
                 .orElse(null);
@@ -30,8 +33,9 @@ public class DbCacheProvider implements CacheProvider {
 
     @Override
     public void put(CacheKey key, String value) {
-        log.info("[DB-CACHE] Сохранение в БД для: {}", key.path());
-        repository.save(new CacheEntry(key.type(), key.data(), key.path(), value));
+        log.info("[DB-CACHE] Сохранение в БД: {}", key.path());
+        CacheId cid = new CacheId(key.type(), key.data(), key.path());
+        repository.save(new CacheEntry(cid, value));
     }
 
     @Override

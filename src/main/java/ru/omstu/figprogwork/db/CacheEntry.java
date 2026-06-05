@@ -6,26 +6,24 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "cache_storage")
 public class CacheEntry {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String type;
-    private String requestData;
-    private String path;
+    @EmbeddedId
+    private CacheId id;
+
+    @Column(columnDefinition = "CLOB")
     private String resultValue;
 
     private LocalDateTime createdAt;
 
     public CacheEntry() {}
 
-    public CacheEntry(String type, String data, String path, String result) {
-        this.type = type;
-        this.requestData = data;
-        this.path = path;
-        this.resultValue = result;
+    public CacheEntry(CacheId id, String resultValue) {
+        this.id = id;
+        this.resultValue = resultValue;
         this.createdAt = LocalDateTime.now();
     }
+
+    public CacheId getId() { return id; }
     public String getResultValue() { return resultValue; }
     public LocalDateTime getCreatedAt() { return createdAt; }
 }
